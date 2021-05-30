@@ -1,39 +1,64 @@
-# ethGreeterApp
+# ethereum-dapp-hello-world
 
-- built during Ethereum Development Course - Blockchain at Berkeley
+- Hello World equivalent of an ethereum smart contract
 
+## Technology
 
+Build using:
 
-run test network:
+- truffle
+- ganache
+- React
+
+## Pre-requisites
+
+Assumption: Mac development environment, or similar.
+
+```
+npm install -g truffle ganache-cli
+```
+
+## Tutorial Outline
+
+There are two parts to the repository:
+
+- *greeter* - a smart contract
+- *greeter-ui* - a React front-end
+
+First, we deploy the smart contract. Run a test network:
+
 ```
 ganache-cli
 ```
 
+From `greeter`, build and deploy the smart contract:
 
 ```
 truffle compile
 truffle migrate
 ```
 
-Note:
-
-```
-contract address:    0x7b8A699e7cf4EBF6324a514155e23F518C312c81
-```
-
-interact:
+Next, lets interact with the smart contract to set its hello world message:
 
 ```
 λ truffle console
-truffle(development)> var instance;
-truffle(development)> Greeter.deployed().then(x => { instance = x; });
-truffle(development)> instance.greeter("init");
+truffle(development)> var instance = await Greeter.deployed();
+truffle(development)> instance.address
+'0xF1a0908A989151A9De4e58Eb1D9F47fbCF721f9d'
+truffle(development)> instance.greeter("Hello, world. I'm a smart contract");
 truffle(development)> instance.greet();
+"Hello, world. I'm a smart contract"
 ```
 
-```
-var instance = await Greeter.deployed();
+From the `greeter-ui` directory, we can get a user interface for
+the smart contract.
 
-instance.greeter("Well, I'm baked in stone");
-instance.greet();
+We need to configure the react app with the correct address for the
+contract. Edit `greeter-contract.js` and set the contract address
+that was output in the `instance.address` response in truffle console.
+
+Now start the application:
+
+```
+npm run start
 ```

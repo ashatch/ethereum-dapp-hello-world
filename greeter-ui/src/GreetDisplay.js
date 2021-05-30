@@ -1,4 +1,4 @@
-import {greeterContract} from './ethereumSetup';
+import {greeterContract} from './greeter-contract';
 import React, { Component } from 'react';
 
 export class GreetDisplay extends Component {
